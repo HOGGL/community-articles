@@ -1,0 +1,87 @@
+\documentclass{techbrief}
+
+\title{Equivalence of sup-norm, $L^1$, and $L^2$ seminorms on the Schwartz space}
+\author{Gabriele Carcassi}
+\category{Quantum mechanics}
+\tags{Schwartz space, topology, seminorms}
+
+\begin{document}
+	
+	\maketitle
+	
+	\begin{abstract}
+		We show that the Schwartz space can be equivalently characterized by the finiteness of sup-norm, $L^1$, or $L^2$ seminorms, and that all three families generate the same locally convex topology. This establishes that the Schwartz space is exactly the space of states for which all moments of position and momentum are well-defined, regardless of which norm is used.
+	\end{abstract}
+	
+	\section{Introduction}
+	
+	The Schwartz space $\mathcal{S}(\mathbb{R})$ is standardly defined via sup-norm seminorms. In quantum mechanics, however, the natural objects are $L^2$ inner products and expectations of operators. Here we show that defining the Schwartz space via $L^2$ seminorms (or $L^1$ seminorms) gives the same space with the same topology. This means that characterizing states by finiteness of all moments of polynomials in position and momentum is equivalent to the standard Schwartz space definition.
+	
+	\section{Definitions}
+	
+	For $f \in C^\infty(\mathbb{R})$ and $\alpha, \beta \in \mathbb{N}_0$, define:
+	\begin{align}
+		\|f\|_{\alpha,\beta}^{\sup} &= \sup_{x \in \mathbb{R}} \left| x^\alpha \, \partial^\beta f(x) \right|, \\[6pt]
+		\|f\|_{\alpha,\beta}^{L^1} &= \int_{\mathbb{R}} \left| x^\alpha \, \partial^\beta f(x) \right| dx, \\[6pt]
+		\|f\|_{\alpha,\beta}^{L^2} &= \left( \int_{\mathbb{R}} \left| x^\alpha \, \partial^\beta f(x) \right|^2 dx \right)^{1/2}.
+	\end{align}
+	The Schwartz space is standardly defined as:
+	\begin{equation}
+		\mathcal{S}(\mathbb{R}) = \left\{ f \in C^\infty(\mathbb{R}) \;\middle|\; \|f\|_{\alpha,\beta}^{\sup} < \infty \quad \text{for all } \alpha, \beta \in \mathbb{N}_0 \right\}.
+	\end{equation}
+	
+	\section{Theorem}
+	
+	\begin{thrm}[Equivalence of seminorm families]
+		For $f \in C^\infty(\mathbb{R})$, the following are equivalent:
+		\begin{itemize}
+			\item[\textup{(i)}] $\|f\|_{\alpha,\beta}^{\sup} < \infty$ for all $\alpha, \beta \in \mathbb{N}_0$.
+			\item[\textup{(ii)}] $\|f\|_{\alpha,\beta}^{L^1} < \infty$ for all $\alpha, \beta \in \mathbb{N}_0$.
+			\item[\textup{(iii)}] $\|f\|_{\alpha,\beta}^{L^2} < \infty$ for all $\alpha, \beta \in \mathbb{N}_0$.
+		\end{itemize}
+		Moreover, the three families generate the same locally convex topology on $\mathcal{S}(\mathbb{R})$.
+	\end{thrm}
+	
+	\begin{proof}
+		We establish a cycle of implications with explicit estimates showing each family is controlled by finitely many seminorms from the next.
+		
+		\emph{Step 1: Sup controls $L^2$.} For $|x| > 1$: $|x^\alpha \partial^\beta f(x)| \leq \frac{\|f\|_{\alpha+1,\beta}^{\sup}}{|x|}$. On $|x| \leq 1$: $|x^\alpha \partial^\beta f(x)| \leq \|f\|_{\alpha,\beta}^{\sup}$. Therefore:
+		\begin{equation}
+			\left(\|f\|_{\alpha,\beta}^{L^2}\right)^2 \leq 2\left(\|f\|_{\alpha,\beta}^{\sup}\right)^2 + 2\left(\|f\|_{\alpha+1,\beta}^{\sup}\right)^2.
+		\end{equation}
+		
+		\emph{Step 2: $L^2$ controls $L^1$.} By Cauchy--Schwarz with the weight $\frac{1}{1+x^2}$:
+		\begin{equation}
+			\|f\|_{\alpha,\beta}^{L^1} \leq \left(\frac{\pi}{2}\right)^{1/2} \left( \|f\|_{\alpha,\beta}^{L^2} + 2\,\|f\|_{\alpha+1,\beta}^{L^2} + \|f\|_{\alpha+2,\beta}^{L^2} \right),
+		\end{equation}
+		where we expanded $(1+x^2)^2 = 1 + 2x^2 + x^4$ and used $\sqrt{a+b+c} \leq \sqrt{a}+\sqrt{b}+\sqrt{c}$.
+		
+		\emph{Step 3: $L^1$ controls sup.} Let $g(x) = x^\alpha \partial^\beta f(x)$. Since $g \in L^1$ and $g' \in L^1$, $g$ is absolutely continuous with $g(x) \to 0$ as $x \to -\infty$. By the fundamental theorem of calculus:
+		\begin{equation}
+			|g(x)| = \left| \int_{-\infty}^{x} g'(t)\, dt \right| \leq \|g'\|_{L^1}.
+		\end{equation}
+		Since $g'(x) = \alpha x^{\alpha-1} \partial^\beta f(x) + x^\alpha \partial^{\beta+1} f(x)$:
+		\begin{equation}
+			\|f\|_{\alpha,\beta}^{\sup} \leq \alpha\,\|f\|_{\alpha-1,\beta}^{L^1} + \|f\|_{\alpha,\beta+1}^{L^1}.
+		\end{equation}
+		
+		\emph{Step 4: Equivalence of topologies.} Each family of seminorms is controlled by finitely many seminorms from the next family. Since this relation is transitive, any family controls and is controlled by any other. By the standard criterion for equivalence of locally convex topologies, all three generate the same topology.
+	\end{proof}
+	
+	\begin{remark}[Sesquilinear forms and quantum mechanics]
+		The expectation values $\langle f | X^\alpha P^\beta | f \rangle = \int f^*(x)\, x^\alpha\, (-i\hbar\partial)^\beta f(x)\, dx$ are sesquilinear forms controlled by the $L^2$ seminorms via Cauchy--Schwarz:
+		\begin{equation}
+			\left| \langle f | X^\alpha P^\beta | f \rangle \right| \leq \|f\|_{0,0}^{L^2} \cdot \|f\|_{\alpha,\beta}^{L^2}.
+		\end{equation}
+		Conversely, the $L^2$ seminorms arise from the diagonal case $\left(\|f\|_{\alpha,\beta}^{L^2}\right)^2 = \langle X^\alpha \partial^\beta f | X^\alpha \partial^\beta f \rangle$. Therefore finiteness of all such expectation values is equivalent to membership in $\mathcal{S}(\mathbb{R})$.
+	\end{remark}
+	
+	\begin{remark}[General $L^p$]
+		The same arguments extend to $L^p$ seminorms for any $1 \leq p \leq \infty$ (with $p = \infty$ being the sup-norm case), using H\"older's inequality and the fundamental theorem of calculus. All $L^p$-based Schwartz seminorm families generate the same topology.
+	\end{remark}
+	
+	\section{Conclusion}
+	
+	The Schwartz space admits equivalent characterizations via sup-norm, $L^1$, or $L^2$ seminorms, all generating the same topology. In quantum mechanics, this means the Schwartz space is exactly the space of states for which all polynomial moments of position and momentum are well-defined, and the natural $L^2$-based characterization is equivalent to the standard definition.
+	
+\end{document}
