@@ -32,7 +32,24 @@ jobs:
           root_file: "*.tex"
           pre_compile: "export SOURCE_DATE_EPOCH=0"
 
+      - name: Checkout repo
+        uses: actions/checkout@v6
+        with:
+          ref: autogen
+          path: autogen
+
+      - name: Push changes
+        run: |
+          cd repo
+          find . -type f -iname '*.pdf' -print0 | rsync -0a --files-from=- ./ ../autogen/
+          cd ../autogen
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -a -m "Add changes"
+          git push
+
       - name: Upload to autogen repository
+        if: false
         run: |
           # Clone tools repository (it has the script)
           git clone https://github.com/assumptionsofphysics/tools tools
